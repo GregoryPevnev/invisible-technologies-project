@@ -1,4 +1,10 @@
-import { weatherRequestURL, formatTemperature, toWeather } from '../../src/pipeline/weather.pipeline'
+import {
+  weatherRequestURL,
+  formatTemperature,
+  toWeather,
+  weatherErrorHandler
+} from '../../src/pipeline/weather.pipeline'
+import { Location } from '../../src/models'
 
 const urlResult = 'url-result'
 const degrees = 10
@@ -7,8 +13,10 @@ const temperature = {
   metric: 'Celsius'
 }
 
+// Impossible to remove duplication
 jest.mock('../../src/utils', () => ({
   sequence: () => {}, // tslint:disable-line:no-empty
+  withHandler: () => {}, // tslint:disable-line:no-empty
   toJSON: () => {}, // tslint:disable-line:no-empty
   buildURL: () => urlResult
 }))
@@ -43,5 +51,14 @@ describe('Weather tests', () => {
       temperature,
       description
     })
+  })
+
+  it('should throw an error', () => {
+    const errorMessage = 'MESSAGE'
+    const address = 'ADDRESS'
+    const location: any = { address }
+
+    expect(() => weatherErrorHandler(new Error(errorMessage), location as Location))
+      .toEqual(`Could not retrieve weather for the following address: ${address} - ${errorMessage}`)
   })
 })

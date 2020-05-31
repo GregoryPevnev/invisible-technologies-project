@@ -1,4 +1,4 @@
-import { sequence, parallel, runForEach } from '../../src/utils'
+import { sequence, parallel, runForEach, withHandler } from '../../src/utils'
 
 const timedFunction = (time: number, cb: CallableFunction): (value: any) => Promise<void> =>
   (value: any) => new Promise<void>((res: CallableFunction) =>
@@ -63,5 +63,19 @@ describe('Composition utilities tests', () => {
 
     expect(mockFunction).toHaveBeenCalledTimes(params.length)
     params.forEach(param => expect(mockFunction).toHaveBeenCalledWith(param))
+  })
+
+  it('should handle error', async () => {
+    const errorValue = 1
+    const handlerValue = 2
+    const errorHandler = jest.fn((error: number, value: number) => error + value)
+
+    const result = await withHandler(
+      () => Promise.reject(errorValue),
+      errorHandler
+    )(handlerValue)
+
+    expect(result).toBe(errorValue + handlerValue)
+    expect(errorHandler).toHaveBeenCalledWith(errorValue, handlerValue)
   })
 })

@@ -1,9 +1,15 @@
-import { locationRequestURL, toLocation } from '../../src/pipeline/location.pipeline'
+import {
+  locationRequestURL,
+  toLocation,
+  locationErrorHandler
+} from '../../src/pipeline/location.pipeline'
 
 const urlResult = 'url-result'
 
+// Impossible to remove duplication
 jest.mock('../../src/utils', () => ({
   sequence: () => {}, // tslint:disable-line:no-empty
+  withHandler: () => {}, // tslint:disable-line:no-empty
   toJSON: () => {}, // tslint:disable-line:no-empty
   buildURL: () => urlResult
 }))
@@ -45,5 +51,13 @@ describe('Location pipeline tests', () => {
       },
       timezone
     })
+  })
+
+  it('should throw an error', () => {
+    const errorMessage = 'MESSAGE'
+    const address = 'ADDRESS'
+
+    expect(() => locationErrorHandler(new Error(errorMessage), address))
+      .toEqual(`Could not find the following address: ${address} - ${errorMessage}`)
   })
 })

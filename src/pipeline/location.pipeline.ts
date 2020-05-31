@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import { locationsConfig } from '../config'
 import { Location } from '../models'
-import { sequence, toJSON, buildURL } from '../utils'
+import { sequence, toJSON, buildURL, withHandler } from '../utils'
 
 type LocationFunction = (address: string) => Promise<Location>|Location
 
@@ -19,7 +19,10 @@ interface LocationData {
 }
 
 export const locationRequestURL = (locationURL: string) => (locationKey: string) => (address: string): string =>
-  buildURL(locationURL, { 'key': locationKey, 'q': address })
+  buildURL(locationURL, {
+    'key': locationKey,
+    'q': address
+  })
 
 export const toLocation = (data: any): Location => {
   if (!data.results || data.results.length === 0)
@@ -41,12 +44,19 @@ export const toLocation = (data: any): Location => {
   }
 }
 
+export const locationErrorHandler = (error: Error, address: string) => {
+  throw new Error(`Could not find the following address: ${address} - ${error.message}`)
+}
+
 const findLocation: LocationFunction =
-  sequence(
-    locationRequestURL(locationsConfig.url)(locationsConfig.apiKey),
-    fetch,
-    toJSON,
-    toLocation
+  withHandler(
+    sequence(
+      locationRequestURL(locationsConfig.url)(locationsConfig.apiKey),
+      fetch,
+      toJSON,
+      toLocation
+    ),
+    locationErrorHandler
   )
 
 export default findLocation
