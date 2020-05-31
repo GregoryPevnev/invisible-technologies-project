@@ -1,28 +1,6 @@
-import { locationRequestURL, toJSON, toLocation } from '../../src/pipeline/location.pipeline'
-import { Response } from 'node-fetch'
+import { toLocation } from '../../src/pipeline/location.pipeline'
 
 describe('Location pipeline tests', () => {
-  it('should location API request URL', () => {
-    const locationURL = 'http://location-api'
-    const locationKey = 'KEY'
-    const address = 'ADDRESS'
-
-    expect(locationRequestURL(locationURL)(locationKey)(address))
-      .toEqual(`${locationURL}/?key=${locationKey}&q=${address}`)
-  })
-
-  it('should transform response data into JSON', () => {
-    const json = 'JSON'
-    const response: any = {
-      json: jest.fn(() => json)
-    }
-
-    const jsonResult = toJSON(response as Response)
-
-    expect(jsonResult).toEqual(json)
-    expect(response.json).toHaveBeenCalledTimes(1)
-  })
-
   it('should throw error when transforming data into Location model (No locations)', () => {
     expect(() => toLocation({})).toThrow('No locations were found')
     expect(() => toLocation({results: []})).toThrow('No locations were found')
