@@ -1,4 +1,11 @@
+export type TemperatureMetric = 'Celsius' | 'Fahrenheit'
+
+export interface Temperature {
+  degrees: number
+  metric: TemperatureMetric
+}
+
 export interface Weather {
-  temperature: string
+  temperature: Temperature
   description: string
 }

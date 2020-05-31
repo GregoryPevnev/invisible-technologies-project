@@ -1,6 +1,22 @@
-import { toLocation } from '../../src/pipeline/location.pipeline'
+import { locationRequestURL, toLocation } from '../../src/pipeline/location.pipeline'
+
+const urlResult = 'url-result'
+
+jest.mock('../../src/utils', () => ({
+  sequence: () => {}, // tslint:disable-line:no-empty
+  toJSON: () => {}, // tslint:disable-line:no-empty
+  buildURL: () => urlResult
+}))
 
 describe('Location pipeline tests', () => {
+  it('should format weather API request URL', () => {
+    const url = 'http://url'
+    const key = 'KEY'
+    const location: any = {coordinates: { lat: 10, lon: 10 }}
+
+    expect(locationRequestURL(url)(key)(location)).toEqual(urlResult)
+  })
+
   it('should throw error when transforming data into Location model (No locations)', () => {
     expect(() => toLocation({})).toThrow('No locations were found')
     expect(() => toLocation({results: []})).toThrow('No locations were found')

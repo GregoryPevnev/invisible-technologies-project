@@ -18,7 +18,7 @@ interface LocationData {
   }
 }
 
-const locationRequestURL = (locationURL: string) => (locationKey: string) => (address: string): string =>
+export const locationRequestURL = (locationURL: string) => (locationKey: string) => (address: string): string =>
   buildURL(locationURL, { 'key': locationKey, 'q': address })
 
 export const toLocation = (data: any): Location => {
