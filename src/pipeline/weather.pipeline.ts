@@ -1,6 +1,8 @@
 import { Location, Weather } from '../models'
 
-export const locationWeather = (location: Location): Weather => ({
+const locationWeather = (location: Location): Weather => ({
   temperature: 'TEMP',
   description: 'DESC'
 })
+
+export default locationWeather

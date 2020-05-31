@@ -1,6 +1,6 @@
 type PromiseFunction<T, V> = (value: T) => Promise<V>|V
 
-export const sequence = <T, V>(initial: PromiseFunction<T, any>, ...funcs: PromiseFunction<any, V|void>[]): PromiseFunction<T, V> =>
+export const sequence = <T, V>(initial: PromiseFunction<T, any>, ...funcs: PromiseFunction<any, any>[]): PromiseFunction<T, V> =>
   (value: T): Promise<V> =>
     funcs.reduce(
       (pipeline, func) =>
