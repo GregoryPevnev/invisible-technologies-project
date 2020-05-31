@@ -19,7 +19,7 @@ const printLocationInfo = ({
                              time
                            }: Info, entry: number): void => {
   if(entry !== 0)
-    console.log('-----------------------------------------------')
+    console.log('------------------------------------------------')
 
   console.log(`It's ${formatTimeInfo(time)} in ${location.address}`)
   console.log(`The weather is ${formatWeatherInfo(weather)}`)

@@ -58,6 +58,6 @@ describe('Location pipeline tests', () => {
     const address = 'ADDRESS'
 
     expect(() => locationErrorHandler(new Error(errorMessage), address))
-      .toEqual(`Could not find the following address: ${address} - ${errorMessage}`)
+      .toThrow(`Could not find the following address: ${address} - ${errorMessage}`)
   })
 })

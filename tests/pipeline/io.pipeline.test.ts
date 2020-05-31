@@ -50,13 +50,13 @@ describe('IO pipeline tests', () => {
       ['Information about locations:'],
       [`It's ${info.time.time} in ${info.location.address}`],
       [`The weather is "${info.weather.description}" and the temperature is `
-        + `${info.weather.temperature.degrees} degrees ${info.weather.temperature.metric}`]
+      + `${info.weather.temperature.degrees} degrees ${info.weather.temperature.metric}`]
     ])
   })
 
   it('should print information entries', () => {
     printInfo([info, info])
 
-    expect(logMock).toHaveBeenCalledWith('-----------------------------------------------')
+    expect(logMock).toHaveBeenCalledWith('------------------------------------------------')
   })
 })

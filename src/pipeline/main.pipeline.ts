@@ -8,13 +8,13 @@ import { Info } from '../../../src/models'
 
 type LocationInfoFunction = (address: string) => void | Promise<void>
 
-const addressInfoErrorHandler = (error: Error, address: string): null => {
+export const infoErrorHandler = (error: Error, _: string): null => {
   console.log(error.message)
 
   return null
 }
 
-const filterEmptyLocations = (info: Info[]): Info[] => info.filter((location: Info) => location !== null)
+export const filterEmptyLocations = (info: Info[]): Info[] => info.filter((location: Info) => location !== null)
 
 const locationInfo: LocationInfoFunction = sequence(
   readAddresses,
@@ -29,7 +29,7 @@ const locationInfo: LocationInfoFunction = sequence(
         ),
         formatInfo
       ),
-      addressInfoErrorHandler
+      infoErrorHandler
     )
   ),
   filterEmptyLocations,

@@ -59,6 +59,6 @@ describe('Weather tests', () => {
     const location: any = { address }
 
     expect(() => weatherErrorHandler(new Error(errorMessage), location as Location))
-      .toEqual(`Could not retrieve weather for the following address: ${address} - ${errorMessage}`)
+      .toThrow(`Could not retrieve weather for the following address: ${address} - ${errorMessage}`)
   })
 })
