@@ -1,4 +1,4 @@
-import { readAddresses, printInfo } from '../../../src/pipeline/io'
+import { readAddresses, printInfo } from '../../src/pipeline/io.pipeline'
 import { Info } from '../../src/models'
 import Mock = jest.Mock
 

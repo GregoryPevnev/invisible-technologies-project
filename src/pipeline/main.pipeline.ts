@@ -4,7 +4,7 @@ import locationTime from './time.pipeline'
 import locationWeather from './weather.pipeline'
 import formatInfo from './format.pipeline'
 import { identity, parallel, runForEach, sequence, withHandler } from '../utils'
-import { Info } from '../../../src/models'
+import { Info } from '../models'
 
 type LocationInfoFunction = (address: string) => void | Promise<void>
 

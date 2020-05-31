@@ -2,6 +2,7 @@ import fetch from 'node-fetch'
 import { locationsConfig } from '../config'
 import { Location } from '../models'
 import { sequence, toJSON, buildURL, withHandler } from '../utils'
+import { im } from '../utils/helpers';
 
 type LocationFunction = (address: string) => Promise<Location>|Location
 
@@ -34,14 +35,14 @@ export const toLocation = (data: any): Location => {
     annotations: { timezone: { name } }
   }: LocationData = data.results[0]
 
-  return {
+  return im({
     address: formatted,
     coordinates: {
       lat,
       lon: lng
     },
     timezone: name
-  }
+  })
 }
 
 export const locationErrorHandler = (error: Error, address: string) => {

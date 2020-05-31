@@ -2,6 +2,7 @@ import fetch from 'node-fetch'
 import { weatherConfig } from '../config'
 import { Location, Temperature, Weather } from '../models'
 import { sequence, buildURL, toJSON, withHandler } from '../utils'
+import { im } from '../utils/helpers';
 
 type WeatherFunction = (location: Location) => Promise<Weather>|Weather
 
@@ -36,10 +37,10 @@ export const toWeather = (data: any): Weather => {
     main: { temp }
   }: WeatherData = data
 
-  return {
+  return im({
     temperature: formatTemperature(temp),
     description
-  }
+  })
 }
 
 export const weatherErrorHandler = (error: Error, location: Location) => {
