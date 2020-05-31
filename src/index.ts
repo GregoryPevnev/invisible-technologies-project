@@ -1,6 +1,4 @@
-import { addressesInfo } from './pipeline'
-
-const paramsToString = (params: string[]): string => params.join(' ')
+import locationInfo from './pipeline'
 
 const args = process.argv.slice(2)
 
@@ -10,5 +8,5 @@ if(args.length < 1) {
   process.exit(1)
 }
 
-addressesInfo(paramsToString(args))
+locationInfo(args)
 

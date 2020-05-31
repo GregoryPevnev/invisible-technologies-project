@@ -1,22 +1,7 @@
-import { printInfo, readAddresses } from './io.pipeline'
-import findLocation from './location.pipeline'
-import locationTime from './time.pipeline'
-import locationWeather from './weather.pipeline'
-import formatInfo from './format.pipeline'
-import { identity, parallel, runForEach, sequence } from '../utils'
+import locationInfo from './main.pipeline'
 
-export const addressesInfo = sequence(
-  readAddresses,
-  runForEach(
-    sequence(
-      findLocation,
-      parallel(
-        identity,
-        locationTime,
-        locationWeather
-      ),
-      formatInfo
-    )
-  ),
-  printInfo
-)
+const paramsToString = (params: string[]): string => params.join(' ')
+
+const pipeline = (args: string[]) => locationInfo(paramsToString(args))
+
+export default pipeline
