@@ -1,0 +1,26 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Utility for finding time and weather in a specific location",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "ts-node src/index.ts NewYork, 10005, Tokyo, SãoPaulo, Pluto",
+    "build": "tsc -p tsconfig.json"
+  },
+  "author": "Gregory Pevnev",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node-fetch": "^2.5.7",
+    "moment": "^2.26.0",
+    "moment-timezone": "^0.5.31",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.0.0",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.3"
+  }
+}
